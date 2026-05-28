@@ -1,0 +1,610 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Expense Tracker RESTful API",
+    "description": "API Spec for Expense Tracker RESTful API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post" : {
+        "tags": ["Users API"],
+        "description": "Register new user",
+        "summary": "Register new user",
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201" : {
+            "description": "Success register users",
+            "content" : {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type" : "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref" : "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags" : ["Users API"],
+        "description": "List all users",
+        "summary": "List all users",
+        "responses": {
+          "200": {
+            "description": "Success get all users",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags" : ["Categories API"],
+        "description": "List all categories",
+        "summary": "List all categories",
+        "responses": {
+          "200": {
+            "description": "Success get all categories",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/Category"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags": ["Categories API"],
+        "description": "Create new category",
+        "summary": "Create new category",
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201" : {
+            "description": "Success register category",
+            "content" : {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type" : "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref" : "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/{categoryID}": {
+      "get": {
+        "tags": ["Categories API"],
+        "summary": "Get detail category by id",
+        "description": "Get detail category by id",
+        "parameters" : [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "categoryID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get post detail by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Categories API"],
+        "summary": "Update category",
+        "description": "Update category",
+        "parameters" : [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "categoryID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success get category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Categories API"],
+        "summary": "Delete Category",
+        "description": "Delete Category",
+        "parameters": [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "categoryID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/expenses": {
+      "get": {
+        "tags" : ["Expenses API"],
+        "description": "List all expenses",
+        "summary": "List all expenses",
+        "responses": {
+          "200": {
+            "description": "Success get all expenses",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/Expense"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags": ["Expenses API"],
+        "description": "Create new expense",
+        "summary": "Create new expense",
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateExpense"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201" : {
+            "description": "Success register expense",
+            "content" : {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type" : "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref" : "#/components/schemas/Expense"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/expenses/{expenseID}": {
+      "get": {
+        "tags": ["Expenses API"],
+        "summary": "Get detail expense by id",
+        "description": "Get detail expense by id",
+        "parameters" : [
+          {
+            "name": "expenseID",
+            "in": "path",
+            "description": "expenseID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get post detail by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Expense"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Expenses API"],
+        "summary": "Update expense",
+        "description": "Update expense",
+        "parameters" : [
+          {
+            "name": "expenseID",
+            "in": "path",
+            "description": "expenseID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateExpense"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success get expense",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Expense"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Expenses API"],
+        "summary": "Delete Expense",
+        "description": "Delete Expense",
+        "parameters": [
+          {
+            "name": "expenseID",
+            "in": "path",
+            "description": "expenseID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete expense",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateOrUpdateUser": {
+        "type" : "object",
+        "properties": {
+          "name" : {
+            "type": "string"
+          },
+          "email": {
+            "type":"string"
+          },
+          "password": {
+            "type":"string"
+          }
+        }
+      },
+      "CreateOrUpdateCategory": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrUpdateExpense": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number"
+          },
+          "category_id": {
+            "type": "number"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type" : "object",
+        "properties": {
+          "id" : {
+            "type" : "number"
+          },
+          "name" : {
+            "type": "string"
+          },
+          "email" : {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id" : {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Expense": {
+        "type": "object",
+        "properties": {
+          "id" : {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "category_id": {
+            "type": "number"
+          },
+          "category": {
+            "type": "object",
+            "properties": {
+              "id" : {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "amount": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}
