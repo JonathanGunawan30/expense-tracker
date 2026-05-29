@@ -62,7 +62,12 @@ func (c *CategoryRepository) Update(ctx context.Context, db *gorm.DB, category *
 		return nil, domainErr.ErrCategoryOrUserNotFound
 	}
 
-	return category, nil
+	reload, err := c.GetDetail(ctx, db, category.ID, category.UserID)
+	if err != nil {
+		return nil, err
+	}
+
+	return reload, nil
 }
 
 func (c *CategoryRepository) Delete(ctx context.Context, db *gorm.DB, categoryID, userID int) error {

@@ -24,7 +24,7 @@ func NewExpenseUsecase(db *gorm.DB, log *logrus.Logger, categoryRepository repos
 	return &ExpenseUsecase{db: db, log: log, categoryRepository: categoryRepository, expenseRepository: expenseRepository}
 }
 
-func (e *ExpenseUsecase) Create(ctx context.Context, request request.ExpenseCreateRequest) (*response.ExpenseResponse, error) {
+func (e *ExpenseUsecase) Create(ctx context.Context, request *request.ExpenseCreateRequest) (*response.ExpenseResponse, error) {
 	tx := e.db.WithContext(ctx).Begin()
 	defer tx.Rollback()
 
@@ -91,7 +91,7 @@ func (e *ExpenseUsecase) GetDetail(ctx context.Context, expenseID, userID int) (
 	return converter.ToExpenseResponse(expense), nil
 }
 
-func (e *ExpenseUsecase) Update(ctx context.Context, request request.ExpenseUpdateRequest) (*response.ExpenseResponse, error) {
+func (e *ExpenseUsecase) Update(ctx context.Context, request *request.ExpenseUpdateRequest) (*response.ExpenseResponse, error) {
 	tx := e.db.WithContext(ctx).Begin()
 	defer tx.Rollback()
 
