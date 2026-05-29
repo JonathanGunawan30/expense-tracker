@@ -1,0 +1,105 @@
+@host = http://localhost:3000
+@api_key = RAHASIA
+
+### 1. Register User
+POST {{host}}/api/users
+X-API-Key: {{api_key}}
+Content-Type: application/json
+
+{
+  "name": "Jonathan Gunawan 2",
+  "email": "jonathan2@example.com",
+  "password": "rahasia"
+}
+
+> {%
+    client.global.set("user_id", response.body.data.id);
+%}
+
+### 2. Get All Users
+GET {{host}}/api/users
+X-API-Key: {{api_key}}
+
+### 3. Create Category
+POST {{host}}/api/categories
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+Content-Type: application/json
+
+{
+  "name": "Food & Beverages"
+}
+
+> {%
+    client.global.set("category_id", response.body.data.id);
+%}
+
+### 4. Get All Categories
+GET {{host}}/api/categories
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+### 5. Get Detail Category
+GET {{host}}/api/categories/{{category_id}}
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+### 6. Update Category
+PUT {{host}}/api/categories/{{category_id}}
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+Content-Type: application/json
+
+{
+  "name": "Food & Drinks"
+}
+
+### 7. Create Expense
+POST {{host}}/api/expenses
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+Content-Type: application/json
+
+{
+  "category_id": {{category_id}},
+  "amount": 50000,
+  "title": "Lunch at Warung",
+  "description": "nasi goreng trs minumnya es teh mantappp"
+}
+> {%
+
+    client.global.set("expense_id", response.body.data.id);
+%}
+
+### 8. Get All Expenses
+GET {{host}}/api/expenses
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+### 9. Get Detail Expense
+GET {{host}}/api/expenses/{{expense_id}}
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+### 10. Update Expense
+PUT {{host}}/api/expenses/{{expense_id}}
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+Content-Type: application/json
+
+{
+  "category_id": {{category_id}},
+  "amount": 55000,
+  "title": "Lunch at Warung (Updated)",
+  "description": "Nasi Goreng Special + Es Teh + Kerupuk 2"
+}
+
+### 11. Delete Expense
+DELETE {{host}}/api/expenses/{{expense_id}}
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+### 12. Delete Category
+DELETE {{host}}/api/categories/{{category_id}}
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
